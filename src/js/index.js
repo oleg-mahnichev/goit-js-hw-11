@@ -6,7 +6,10 @@ const form = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery');
 let page = 1;
 const perPage = 30;
-
+let totalImages = 0;
+let totalPages = 0;
+let isLoading = false;
+let currentSearchQuery = '';
 
 const pixabayApiKey = '38375403-409fa10b1f66841faf3e919b8';
 
@@ -97,7 +100,7 @@ const lightbox = new SimpleLightbox('.gallery__item');
 
 window.addEventListener('scroll', () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight - 100 && !isLoading && page <= totalPages) {
+    if (!isLoading && page <= totalPages && scrollTop + clientHeight >= scrollHeight - 100) {
         performSearch(currentSearchQuery);
     }
 });
